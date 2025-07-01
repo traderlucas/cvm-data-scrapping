@@ -1,13 +1,15 @@
-from src.cvm_requests import GetItrDfpBovespa
+from src.handler import EarningsExtractLoad
+from src.cvm_requests import ItrRequest, DfpRequest
 
 
-def main():
-    extractor = GetItrDfpBovespa(2024)
-    itr = extractor.get_itr()
-    dfp = extractor.get_dfp()
+def main(year):
+    handler = EarningsExtractLoad(bucket="cvmearningsdata")
 
-
-
+    for doc_type in [ItrRequest, DfpRequest]:
+        doc_type = doc_type(year)
+        handler.extract_load(doc_type)
 
 if __name__ == "__main__":
-    main()
+    for i in range(2010, 2023):
+        main(i)
+        print(i, "concluded")
