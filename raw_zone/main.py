@@ -1,5 +1,5 @@
-from src.handler import EarningsExtractLoad
-from src.cvm_requests import ItrRequest, DfpRequest
+from handler import EarningsExtractLoad
+from cvm_requests import ItrRequest, DfpRequest
 
 
 def main(year):
@@ -8,8 +8,11 @@ def main(year):
     for doc_type in [ItrRequest, DfpRequest]:
         doc_type = doc_type(year)
         handler.extract_load(doc_type)
+        print(year, "concluded")
+
 
 if __name__ == "__main__":
-    for i in range(2010, 2023):
+    start = int(input())
+    end = int(input())
+    for i in range(start, end):
         main(i)
-        print(i, "concluded")
